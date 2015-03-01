@@ -12,3 +12,4 @@
 ### Added
 
 - Base components
+- LoginForm component
