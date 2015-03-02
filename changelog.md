@@ -13,3 +13,10 @@
 
 - Base components
 - LoginForm component
+
+
+## [2015-03-02]
+
+### Added
+
+- Login/Logout feature

@@ -1,5 +1,4 @@
 var React = require('react');
-
 var KanbanerApp = require('./components/KanbanerApp.react');
 
 

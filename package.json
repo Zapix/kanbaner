@@ -2,6 +2,10 @@
   "name": "kanbaner",
   "version": "0.0.1",
   "description": "Kanbaner. Single page application based on RreactJS. Create a kanban desk from github issues.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Zapix/kanbaner.git"
+  },
   "main": "js/app/app.js",
   "dependencies": {
     "flux": "^2.0.0",
@@ -18,11 +22,12 @@
     "watchify": "^2.1.1"
   },
   "scripts": {
+    "runserver": "http-server .",
     "start": "watchify -o js/app/bundle.js -v -d .",
     "build": "NODE_ENV=production browserify . | uglifyjs -cm > js/bundle.min.js",
     "test": "jest"
   },
-  "author": "Bill Fisher",
+  "author": "Aleksandr Aibulatov",
   "browserify": {
     "transform": [
       "reactify",
