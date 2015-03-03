@@ -72,7 +72,7 @@ var Navigation = React.createClass({
 
         <section className="top-bar-section">
           <ul className="right">
-            <li><a href="#">Main</a></li>
+            <li><a href="#">Home</a></li>
             <li><a href="#">About</a></li>
             {userNavigationSection}
           </ul>

@@ -11,7 +11,10 @@
     "flux": "^2.0.0",
     "keymirror": "~0.1.0",
     "object-assign": "^1.0.0",
-    "react": "^0.12.0"
+    "react": "^0.12.0",
+    "btoa": "*",
+    "reqwest": "*",
+    "jquery": "*"
   },
   "devDependencies": {
     "browserify": "^6.2.0",
@@ -24,7 +27,7 @@
   "scripts": {
     "runserver": "http-server .",
     "start": "watchify -o js/app/bundle.js -v -d .",
-    "build": "NODE_ENV=production browserify . | uglifyjs -cm > js/bundle.min.js",
+    "build": "NODE_ENV=production browserify ./js/app | uglifyjs -cm > js/bundle.min.js",
     "test": "jest"
   },
   "author": "Aleksandr Aibulatov",
