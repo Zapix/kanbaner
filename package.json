@@ -38,6 +38,7 @@
     ]
   },
   "jest": {
-    "rootDir": "./js/app"
+    "rootDir": "./js/app",
+    "collectCoverage": true
   }
 }

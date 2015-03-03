@@ -1,42 +1,44 @@
-var btoa = require('btoa');
-var reqwest = require('reqwest');
-var assign = require('object-assign');
-var EventEmitter = require('events').EventEmitter;
+var
+  $ = require( "jquery" ),
+  btoa = require( "btoa" ),
+  assign = require( "object-assign" ),
+  EventEmitter = require( "events" ).EventEmitter,
 
-var KanbanerDispatcher = require('../dispatcher/KanbanerDispatcher');
-var KanbanerConstants = require('../constants/KanbanerConstants');
+  KanbanerDispatcher = require( "../dispatcher/KanbanerDispatcher" ),
+  KanbanerConstants = require( "../constants/KanbanerConstants" ),
 
-var ActionTypes = KanbanerConstants.ActionTypes;
+  ActionTypes = KanbanerConstants.ActionTypes,
 
+  USER_LOGGED_IN = "user-logged-in",
+  USER_LOGGED_OUT = "user-logged-out",
+  USER_AUTHENTICATION_FAILED = "user-authentication-failed",
 
-var USER_LOGGED_IN = 'user-logged-in';
-var USER_LOGGED_OUT = 'user-logged-out';
-var USER_AUTHENTICATION_FAILED = 'user-authentication-failed';
-
-var user = null;
-var token = null;
+  user = null,
+  token = null;
 
 /**
  * Tries to authenticate user with login/password
  * @param {string} username
  * @param {password} password
  */
-var authenticateUser = function(username, password) {
-  var authToken = btoa(username + ":" + password)
-  reqwest({
-    url: 'https://api.github.com/user',
-    method: 'get',
+var authenticateUser = function( username, password ) {
+  var authToken = btoa( username + ":" + password );
+
+  $.when( $.ajax( {
+    url: "https://api.github.com/user",
+    method: "get",
     headers: {
       "Authorization": "Basic " + authToken
     }
-  })
-    .then(function(response) {
-      user = response;
-      token = authToken;
-      UserStore.emitUserLoggedIn();
-    })
-    .fail(function(error, msg) {
-      UserStore.emitAuthenticationFailed();
+  } ) )
+    .then(function( data, status, jqXHR ) {
+      if ( jqXHR.status == 200) {
+        user = data;
+        token = authToken;
+        UserStore.emitUserLoggedIn();
+      } else {
+        UserStore.emitAuthenticationFailed();
+      }
     });
 };
 
@@ -55,7 +57,7 @@ var UserStore = assign({}, EventEmitter.prototype, {
    * @returns {boolean}
    */
   isUserLoggedIn: function() {
-    return (user)?true:false;
+    return ( user ) ? true : false;
   },
 
   /**
@@ -69,16 +71,16 @@ var UserStore = assign({}, EventEmitter.prototype, {
    * Add listener for user logged in event
    * @param {function} callback
    */
-  addUserLoggedInListener: function(callback) {
-    this.on(USER_LOGGED_IN, callback);
+  addUserLoggedInListener: function( callback ) {
+    this.on( USER_LOGGED_IN, callback );
   },
 
   /**
    * Remove listener for user logged out event
    * @param {function} callback
    */
-  removeUserLoggedInListener: function(callback) {
-    this.removeListener(USER_LOGGED_IN, callback);
+  removeUserLoggedInListener: function( callback ) {
+    this.removeListener( USER_LOGGED_IN, callback );
   },
 
   /**
@@ -139,13 +141,13 @@ UserStore.dispatcherToken = KanbanerDispatcher.register(function(payload) {
   var action = payload.action;
 
   console.log(action.type);
-  switch(action.type) {
+  switch( action.type ) {
     case ActionTypes.SEND_AUTHENTICATION_CREDENTIALS:
-      console.log("Send auth credentials");
-      authenticateUser(action.username, action.password);
+      console.log( "Send auth credentials" );
+      authenticateUser( action.username, action.password );
       break;
     case ActionTypes.USER_LOGOUT:
-      console.log("Logout user");
+      console.log( "Logout user" );
       logoutUser();
       break;
   }
