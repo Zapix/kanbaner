@@ -8,13 +8,14 @@
   },
   "main": "js/app/app.js",
   "dependencies": {
+    "btoa": "*",
     "flux": "^2.0.0",
+    "jquery": "*",
     "keymirror": "~0.1.0",
     "object-assign": "^1.0.0",
+    "q": "^1.2.0",
     "react": "^0.12.0",
-    "btoa": "*",
-    "reqwest": "*",
-    "jquery": "*"
+    "reqwest": "*"
   },
   "devDependencies": {
     "browserify": "^6.2.0",
@@ -38,7 +39,7 @@
     ]
   },
   "jest": {
-    "rootDir": "./js/app",
-    "collectCoverage": true
+    "collectCoverage": true,
+    "rootDir": "./js/app"
   }
 }

@@ -1,4 +1,5 @@
 var
+  Q = require( "q" );
   $ = require( "jquery" ),
   btoa = require( "btoa" ),
   assign = require( "object-assign" ),
@@ -24,22 +25,24 @@ var
 var authenticateUser = function( username, password ) {
   var authToken = btoa( username + ":" + password );
 
-  $.when( $.ajax( {
+  Q.when( $.ajax( {
     url: "https://api.github.com/user",
     method: "get",
     headers: {
       "Authorization": "Basic " + authToken
     }
   } ) )
-    .then(function( data, status, jqXHR ) {
-      if ( jqXHR.status == 200) {
-        user = data;
-        token = authToken;
-        UserStore.emitUserLoggedIn();
-      } else {
-        UserStore.emitAuthenticationFailed();
-      }
-    });
+    .then(function( data ) {
+      console.log( data );
+      user = data;
+      token = authToken;
+      UserStore.emitUserLoggedIn();
+    })
+    .catch(function( error ) {
+      console.log( error );
+      UserStore.emitAuthenticationFailed();
+    })
+    .done();
 };
 
 /**

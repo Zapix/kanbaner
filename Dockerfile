@@ -8,5 +8,4 @@ ADD . /src
 RUN npm install -g http-server jest-cli
 RUN cd /src && npm install
 
-VOLUME [".:/src"]
 WORKDIR /src
