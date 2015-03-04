@@ -1,48 +1,101 @@
 jest.dontMock( "../../constants/KanbanerConstants" );
 jest.dontMock( "../UserStore" );
 jest.dontMock( "object-assign" );
-jest.dontMock( "q" );
 
-describe( 'UserStore', function() {
+describe( "UserStore", function() {
 
   var
-    Q,
-    $,
-    btoa,
     callback,
     KanbanerDispatcher,
     UserStore,
-    KanbanerConstants = require('../../constants/KanbanerConstants'),
+    KanbanerConstants = require( "../../constants/KanbanerConstants" ),
     PayloadSources = KanbanerConstants.PayloadSources,
     ActionTypes = KanbanerConstants.ActionTypes;
 
   beforeEach(function() {
-    Q = require("q");
-    $ = require("jquery");
     KanbanerDispatcher = require( "../../dispatcher/KanbanerDispatcher" );
-    btoa = require( "btoa" );
     UserStore = require( "../UserStore" );
     callback = KanbanerDispatcher.register.mock.calls[0][0];
 
   });
 
-  it( "check user authenticated", function() {
+  it( "check user login success", function() {
     var
-      username = "username",
-      password = "password",
-      authToken = btoa( username + ":" + password ),
+      user,
       payload = {
         source: PayloadSources.VIEW_ACTION,
         action: {
-          type: ActionTypes.SEND_AUTHENTICATION_CREDENTIALS,
-          username: "tester",
-          password: "password"
+          type: ActionTypes.USER_LOGIN_SUCCESS,
+          user: {
+            login: "Zapix",
+            avatar_url: "https://github.com/images/123123"
+          },
+          token: "sometokenvalue"
         }
       };
 
     callback( payload );
 
-    expect( $.ajax ).toBeCalled();
+    expect( UserStore.isUserLoggedIn() ).toEqual( true );
+
+    user = UserStore.getUser();
+
+    expect( user.login ).toEqual( "Zapix" );
+
+  });
+
+  it( "check user login failed", function() {
+    var
+      user,
+      payload = {
+        source: PayloadSources.VIEW_ACTION,
+        action: {
+          type: ActionTypes.USER_LOGIN_FAIL
+        }
+      };
+
+    callback( payload );
+
+    expect( UserStore.isUserLoggedIn() ).toEqual( false );
+
+    user = UserStore.getUser();
+
+    expect( user ).toBeFalsy();
+  });
+
+  it( "check user logout ", function() {
+    var
+      user,
+      loginPayload = {
+        source: PayloadSources.VIEW_ACTION,
+        action: {
+          type: ActionTypes.USER_LOGIN_SUCCESS,
+          user: {
+            login: "Zapix",
+            avatar_url: "https://github.com/images/123123"
+          },
+          token: "sometokenvalue"
+        }
+
+      },
+      logoutPayload = {
+        source: PayloadSources.VIEW_ACTION,
+        action: {
+          type: ActionTypes.USER_LOGOUT
+        }
+      };
+
+    callback( loginPayload );
+
+    expect( UserStore.isUserLoggedIn() ).toEqual( true );
+
+    callback( logoutPayload );
+
+    expect( UserStore.isUserLoggedIn() ).toEqual( false );
+
+    user = UserStore.getUser();
+
+    expect( user ).toBeFalsy();
   });
 });
 

@@ -2,14 +2,13 @@ var keyMirror = require('keymirror');
 
 var KanbanerConstants = {
   ActionTypes: keyMirror({
-    SEND_AUTHENTICATION_CREDENTIALS: null,
-    USER_LOGIN: null,
+    USER_LOGIN_SUCCESS: null,
+    USER_LOGIN_FAIL: null,
     USER_LOGOUT: null
   }),
 
   PayloadSources: keyMirror({
-    VIEW_ACTION: null,
-    GITHUB_ACTION: null
+    VIEW_ACTION: null
   })
 };
 

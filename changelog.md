@@ -20,3 +20,14 @@
 ### Added
 
 - Login/Logout feature
+
+## [2015-03-04]
+
+### Added
+
+- Testing UserStore/UserActions
+- Async requests in UserActions
+
+### Removed
+
+- Async requests form UserStore

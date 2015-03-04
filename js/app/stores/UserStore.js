@@ -1,7 +1,4 @@
 var
-  Q = require( "q" );
-  $ = require( "jquery" ),
-  btoa = require( "btoa" ),
   assign = require( "object-assign" ),
   EventEmitter = require( "events" ).EventEmitter,
 
@@ -18,31 +15,18 @@ var
   token = null;
 
 /**
- * Tries to authenticate user with login/password
- * @param {string} username
- * @param {password} password
+ * Save user and token variables. Emit USER_LOGGED_IN event
+ * @param {string} authUser
+ * @param {string} authToken
  */
-var authenticateUser = function( username, password ) {
-  var authToken = btoa( username + ":" + password );
+var loginUser = function( authUser, authToken ) {
+  user = authUser;
+  token = authToken;
+  UserStore.emitUserLoggedIn();
+};
 
-  Q.when( $.ajax( {
-    url: "https://api.github.com/user",
-    method: "get",
-    headers: {
-      "Authorization": "Basic " + authToken
-    }
-  } ) )
-    .then(function( data ) {
-      console.log( data );
-      user = data;
-      token = authToken;
-      UserStore.emitUserLoggedIn();
-    })
-    .catch(function( error ) {
-      console.log( error );
-      UserStore.emitAuthenticationFailed();
-    })
-    .done();
+var sendLoginFailed = function() {
+  UserStore.emitAuthenticationFailed();
 };
 
 /**
@@ -140,17 +124,18 @@ var UserStore = assign({}, EventEmitter.prototype, {
   }
 });
 
-UserStore.dispatcherToken = KanbanerDispatcher.register(function(payload) {
+UserStore.dispatcherToken = KanbanerDispatcher.register(function( payload ) {
   var action = payload.action;
 
-  console.log(action.type);
+  console.log( action.type );
   switch( action.type ) {
-    case ActionTypes.SEND_AUTHENTICATION_CREDENTIALS:
-      console.log( "Send auth credentials" );
-      authenticateUser( action.username, action.password );
+    case ActionTypes.USER_LOGIN_SUCCESS:
+      loginUser( action.user, action.token );
+      break;
+    case ActionTypes.USER_LOGIN_FAIL:
+      sendLoginFailed();
       break;
     case ActionTypes.USER_LOGOUT:
-      console.log( "Logout user" );
       logoutUser();
       break;
   }
