@@ -7,7 +7,6 @@ var
 
   ActionTypes = KanbanerConstants.ActionTypes,
 
-  USER_STORE_INIT = "user-store-init",
   USER_LOGGED_IN = "user-logged-in",
   USER_LOGGED_OUT = "user-logged-out",
   USER_AUTHENTICATION_FAILED = "user-authentication-failed",
@@ -39,10 +38,6 @@ var logoutUser = function() {
   token = null;
 
   UserStore.emitUserLoggedOut();
-};
-
-var initUserStore = function() {
-  UserStore.emitUserStoreInit();
 };
 
 var UserStore = assign({}, EventEmitter.prototype, {
@@ -137,38 +132,14 @@ var UserStore = assign({}, EventEmitter.prototype, {
    */
   emitAuthenticationFailed: function() {
     this.emit(USER_AUTHENTICATION_FAILED);
-  },
-
-  /**
-   * Add user store init event listener
-   * @param {function} callback
-   */
-  addUserStoreInitListener: function (callback) {
-    this.on(USER_STORE_INIT, callback);
-  },
-
-  /**
-   * Remove user store init event listener
-   */
-  removeUserStoreInitListener: function(callback) {
-    this.removeListener(USER_STORE_INIT, callback);
-  },
-
-  /**
-   * Send user store init event
-   */
-  emitUserStoreInit: function() {
-    this.emit(USER_STORE_INIT)
   }
+
 });
 
 UserStore.dispatcherToken = KanbanerDispatcher.register(function( payload ) {
   var action = payload.action;
 
   switch( action.type ) {
-    case ActionTypes.APP_INIT:
-      initUserStore();
-      break;
     case ActionTypes.USER_LOGIN_SUCCESS:
       loginUser( action.user, action.token );
       break;

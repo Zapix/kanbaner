@@ -3,7 +3,6 @@ var
   Router = require( "react-router" ),
   RouteHandler = Router.RouteHandler,
 
-  AppActions = require( "../actions/AppActions" ),
   UserStore = require( "../stores/UserStore" ),
 
   Navigation = require( "./Navigation.react" ),
@@ -28,7 +27,6 @@ var
       componentDidMount: function() {
 
         UserStore.addUserLoggedOutListener( this.onUserLoggedOut );
-        AppActions.initApp();
       },
 
       compoenentWillUnmount: function() {
