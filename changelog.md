@@ -37,3 +37,4 @@
 ### Added
 
 - routing with react-router application
+- loader

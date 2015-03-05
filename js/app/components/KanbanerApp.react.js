@@ -6,8 +6,8 @@ var
   UserStore = require( "../stores/UserStore" ),
 
   Navigation = require( "./Navigation.react" ),
-  MainSection = require( "./MainSection.react" ),
-  Footer = require( "./Footer.react" );
+  Footer = require( "./Footer.react" ),
+  Loader = require( "./Loader.react" );
 
   getState = function() {
     return {
@@ -35,8 +35,9 @@ var
         return (
           <div>
             <Navigation/>
-            <RouteHandler />
+            <RouteHandler/>
             <Footer/>
+            <Loader/>
           </div>
         );
       },

@@ -1,5 +1,6 @@
 jest.dontMock( "../../constants/KanbanerConstants" );
 jest.dontMock( "../UserActions" );
+jest.dontMock( "../LoaderActions" );
 jest.dontMock( "q" );
 jest.dontMock( "btoa" );
 jest.dontMock( "keymirror" );
@@ -7,6 +8,7 @@ jest.dontMock( "keymirror" );
 describe( "UserActions", function() {
   var
     $,
+    Q,
     KanbanerDispatcher,
     UserActions,
     KanbanerConstants = require( "../../constants/KanbanerConstants" ),
@@ -30,40 +32,50 @@ describe( "UserActions", function() {
       }
     }) );
 
-    return UserActions.sendAuthCredentials( "Zapix", "123123" )
+    UserActions.sendAuthCredentials( "Zapix", "123123" )
       .then(function( value ) {
         var
-          returnValue;
+          callCount;
 
         expect( $.ajax ).toBeCalled();
 
         expect( KanbanerDispatcher.handleViewAction ).toBeCalled();
 
-        returnValue = KanbanerDispatcher.handleViewAction.mock.calls[0][0];
+        callCount = KanbanerDispatcher.handleViewAction.mock.calls.filter(
+          function(call) {
+            return call[0].type == ActionTypes.USER_LOGIN_SUCCESS;
+          }
+        );
 
-        expect( returnValue.type ).toEquals( ActionTypes.USER_LOGIN_SUCCESS );
-        expect( returnValue.user ).toBeTruthy();
-        expect( returnValue.user.login ).toEqual( "Zapix" );
+        expect( callCount.length ).toEqual( 1 );
 
       });
   });
 
-  pit( "Send authentication fail", function() {
+  it( "Send authentication fail", function() {
     $.ajax = jest.genMockFunction();
 
     $.ajax.mockReturnValue( Q.reject("Failed") );
 
-    return UserActions.sendAuthCredentials( "Zapix", "123123" )
+    UserActions.sendAuthCredentials( "Zapix", "123123" )
       .then(function( value ) {
         var
-          returnValue;
+          callCount;
+
+        console.log("[UserActions:logout]", value);
+
         expect( $.ajax ).toBeCalled();
 
         expect( KanbanerDispatcher.handleViewAction ).toBeCalled();
 
-        returnValue = KanbanerDispatcher.handleViewAction.mock.calls[0][0];
+        callCount = KanbanerDispatcher.handleViewAction.mock.calls.filter(
+          function(call) {
+            return call[0].type == ActionTypes.USER_LOGIN_FAIL;
+          }
+        );
 
-        expect( returnValue.type ).toEqual( ActionTypes.USER_LOGIN_FAIL );
+
+        expect( callCount.length ).toEqual( 1 );
       });
   });
 
@@ -71,13 +83,15 @@ describe( "UserActions", function() {
     UserActions.logoutUser()
       .then(function( value ) {
         var
-          returnValue;
+          callValue;
+
+        console.log("[UserActions:logout]", value);
 
         expect( KanbanerDispatcher.handleViewAction ).toBeCalled();
 
-        returnValue = KanbanerDispatcher.handleViewAction.mock.calls[0][0];
+        callValue = KanbanerDispatcher.handleViewAction.mock.calls[0][0];
 
-        expect( returnValue.type ).toEqual( ActionTypes.USER_LOGOUT );
+        expect( callValue.type ).toEqual( ActionTypes.USER_LOGOUT );
       });
 
   });

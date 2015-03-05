@@ -17,19 +17,8 @@ var KanbanerDispatcher = assign(new Dispatcher(), {
       action: action
     };
     this.dispatch(payload);
-  },
-
-  /**
-   * Send action that comes from GitHub
-   * @param {object} action
-   */
-  handleGithubAction: function(action){
-    var payload = {
-      source: PayloadSources.GITHUB_ACTION,
-      action: action
-    };
-    this.dispatch(payload);
   }
+
 });
 
 module.exports = KanbanerDispatcher;
