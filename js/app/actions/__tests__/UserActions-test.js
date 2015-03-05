@@ -33,7 +33,7 @@ describe( "UserActions", function() {
     }) );
 
     UserActions.sendAuthCredentials( "Zapix", "123123" )
-      .then(function( value ) {
+      .then(function() {
         var
           callCount;
 
@@ -58,11 +58,9 @@ describe( "UserActions", function() {
     $.ajax.mockReturnValue( Q.reject("Failed") );
 
     UserActions.sendAuthCredentials( "Zapix", "123123" )
-      .then(function( value ) {
+      .then(function() {
         var
           callCount;
-
-        console.log("[UserActions:logout]", value);
 
         expect( $.ajax ).toBeCalled();
 
@@ -81,11 +79,9 @@ describe( "UserActions", function() {
 
   it( "Send logout", function() {
     UserActions.logoutUser()
-      .then(function( value ) {
+      .then(function() {
         var
           callValue;
-
-        console.log("[UserActions:logout]", value);
 
         expect( KanbanerDispatcher.handleViewAction ).toBeCalled();
 

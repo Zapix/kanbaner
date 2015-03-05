@@ -12,11 +12,11 @@
     "flux": "^2.0.0",
     "jquery": "*",
     "keymirror": "~0.1.0",
+    "localStorage": "^1.0.3",
     "object-assign": "^1.0.0",
     "q": "^1.2.0",
     "react": "^0.12.0",
-    "react-router": "^0.12.4",
-    "reqwest": "*"
+    "react-router": "^0.12.4"
   },
   "devDependencies": {
     "browserify": "^6.2.0",

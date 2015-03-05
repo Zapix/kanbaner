@@ -38,3 +38,4 @@
 
 - routing with react-router application
 - loader
+- localStorage storing token support

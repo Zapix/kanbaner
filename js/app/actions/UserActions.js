@@ -17,19 +17,18 @@ var
    * @param {string} password
    * @return {object} promise object
    */
-  authenticateUser = function( username, password ) {
-    var authToken = btoa( username + ":" + password );
+  authenticateUser = function( token ) {
     return Q($.ajax({
       url: "https://api.github.com/user",
       method: "get",
       headers: {
-        "Authorization": "Basic " + authToken
+        "Authorization": "Basic " + token
       }
     }) )
       .then(function ( data ) {
         return Q({
           user: data,
-          token: authToken
+          token: token
         });
       }, function() {
         return Q( null );
@@ -37,17 +36,18 @@ var
   };
 
   UserActions = {
+
     /**
-     * @param {string} username
-     * @param {string} password
+     * Tries to authorize with current token
+     * @param token
+     * @returns {*}
      */
-    sendAuthCredentials: function(username, password) {
+    checkToken: function( token ){
       return LoaderActions.showLoader()
         .then(function() {
-          return authenticateUser(username, password)
+          return authenticateUser( token )
         })
         .then(function( data ) {
-          console.log(data);
           if( data ) {
             KanbanerDispatcher.handleViewAction({
               type: ActionTypes.USER_LOGIN_SUCCESS,
@@ -60,9 +60,17 @@ var
           KanbanerDispatcher.handleViewAction({
             type: ActionTypes.USER_LOGIN_FAIL
           });
-            return Q( "failed" );
+          return Q( "failed" );
         })
         .then(LoaderActions.hideLoader);
+    },
+    /**
+     * @param {string} username
+     * @param {string} password
+     */
+    sendAuthCredentials: function(username, password) {
+      var token = btoa( username + ":" + password );
+      return this.checkToken( token );
     },
 
     logoutUser: function() {

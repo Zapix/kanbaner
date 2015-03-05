@@ -3,11 +3,13 @@ var
   Router = require( "react-router" ),
   RouteHandler = Router.RouteHandler,
 
+  AppActions = require( "../actions/AppActions" ),
   UserStore = require( "../stores/UserStore" ),
 
   Navigation = require( "./Navigation.react" ),
   Footer = require( "./Footer.react" ),
-  Loader = require( "./Loader.react" );
+  Loader = require( "./Loader.react" ),
+  LocalStorage = require( "./LocalStorage.react" );
 
   getState = function() {
     return {
@@ -24,7 +26,9 @@ var
       },
 
       componentDidMount: function() {
+
         UserStore.addUserLoggedOutListener( this.onUserLoggedOut );
+        AppActions.initApp();
       },
 
       compoenentWillUnmount: function() {
@@ -38,6 +42,7 @@ var
             <RouteHandler/>
             <Footer/>
             <Loader/>
+            <LocalStorage />
           </div>
         );
       },
@@ -47,9 +52,7 @@ var
        */
       onUserLoggedOut: function() {
         this.setState( getState() );
-        if( !this.state.isUserLoggedIn ) {
-          this.transitionTo( "/login" );
-        }
+        this.transitionTo( "app" );
       }
     }
   );

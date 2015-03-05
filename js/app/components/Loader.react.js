@@ -31,8 +31,6 @@ var
         <div></div>
       );
 
-      console.log( this.state );
-
       if( this.state.loader ) {
        loader = (
          <div className="loader-container">
@@ -50,7 +48,6 @@ var
      * Handle loader change event
      */
     onChange: function() {
-      console.log("Update loader");
       this.setState( getState() );
     }
   });
