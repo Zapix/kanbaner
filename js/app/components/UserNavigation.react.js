@@ -1,28 +1,30 @@
-var React = require('react');
+var
+  React = require('react'),
+  Link = require('react-router').Link,
 
-var UserNavigation = React.createClass({
-  propsTypes: {
-    user: React.PropTypes.object.isRequired,
-    onLogoutClicked: React.PropTypes.func.isRequired
-  },
+  UserNavigation = React.createClass({
+    propsTypes: {
+      user: React.PropTypes.object.isRequired,
+      onLogoutClicked: React.PropTypes.func.isRequired
+    },
 
-  render: function() {
-    var user = this.props.user;
-    var onLogoutClicked = this.props.onLogoutClicked;
+    render: function() {
+      var user = this.props.user;
+      var onLogoutClicked = this.props.onLogoutClicked;
 
-    return (
-      <li className="has-dropdown">
-        <a href="#">
-          <img className="menuicon" src={user.avatar_url}/>&nbsp;
+      return (
+        <li className="has-dropdown">
+          <a href="#">
+            <img className="menuicon" src={user.avatar_url}/>&nbsp;
           {user.login}
-        </a>
-        <ul className="dropdown">
-          <li><a href="#" onClick={onLogoutClicked}>Log out</a></li>
-          <li><a href="#">Profile</a></li>
-        </ul>
-      </li>
-    );
-  }
+          </a>
+          <ul className="dropdown">
+            <li><a href="#" onClick={onLogoutClicked}>Log out</a></li>
+            <li><Link to="profile">Profile</Link></li>
+          </ul>
+        </li>
+      );
+    }
 });
 
 module.exports = UserNavigation;

@@ -1,8 +1,11 @@
-var React = require('react');
+var
+  React = require( "react" ),
+  Router = require( "react-router" ),
+  Link = Router.Link
 
-var UserStore = require('../stores/UserStore');
-var UserAction = require('../actions/UserActions');
-var UserNavigation = require('./UserNavigation.react');
+  UserStore = require( "../stores/UserStore" ),
+  UserAction = require( "../actions/UserActions" ),
+  UserNavigation = require( "./UserNavigation.react" );
 
 /**
  * Returns user from  UserStore
@@ -61,7 +64,7 @@ var Navigation = React.createClass({
       >
         <ul className="title-area">
           <li className="name">
-            <h1><a href="#">Kanbaner</a></h1>
+            <h1><Link to="app">Kanbaner</Link></h1>
           </li>
           <li className="toggle-topbar menu-icon">
             <a href="#">
@@ -72,8 +75,8 @@ var Navigation = React.createClass({
 
         <section className="top-bar-section">
           <ul className="right">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
+            <li><Link to="app">Home</Link></li>
+            <li><Link to="about">About</Link></li>
             {userNavigationSection}
           </ul>
         </section>

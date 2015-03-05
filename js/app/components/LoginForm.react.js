@@ -1,9 +1,12 @@
-var React = require('react');
+var
+  React = require( "react" ),
+  Router = require( "react-router" ),
 
-var UserActions = require('../actions/UserActions');
-var UserStore = require('../stores/UserStore');
+  UserActions = require( "../actions/UserActions" ),
+  UserStore = require( "../stores/UserStore" );
 
 var LoginForm = React.createClass({
+   mixins: [ Router.Navigation, Router.State ],
   /**
    * Initial state for authentication error.
    * @returns {{authenticationFailed: boolean}}
@@ -14,10 +17,12 @@ var LoginForm = React.createClass({
 
   /**
    * Add USER_AUTHENTICATION_FAILED, USER_LOGGED_IN event handlers when mount
-   * component
+   * component. Checks is user authenticated
    */
   componentDidMount: function() {
-    UserStore.addAuthenticationFailedListener(this.onAuthenticationFailed);
+    UserStore.addAuthenticationFailedListener( this.onAuthenticationFailed );
+    UserStore.addUserLoggedInListener( this.onUserLoggedIn );
+    this.checkUserLogin();
   },
 
   /**
@@ -25,7 +30,8 @@ var LoginForm = React.createClass({
    * unmount component
    */
   componentWillUnmount: function() {
-    UserStore.removeAuthenticationFailedListener(this.onAuthenticationFailed);
+    UserStore.removeAuthenticationFailedListener( this.onAuthenticationFailed );
+    UserStore.removeUserLoggedInListener( this.onUserLoggedIn )
   },
 
   /**
@@ -81,7 +87,9 @@ var LoginForm = React.createClass({
           {errorMessage}
             <div className="row">
               <div className="large-2 medium-2 small-3 columns">
-                <label htmlFor="username" className="right inline">
+                <label
+                  htmlFor="username"
+                  className="right inline">
                   Username
                 </label>
               </div>
@@ -96,7 +104,10 @@ var LoginForm = React.createClass({
             </div>
             <div className="row">
               <div className="large-2 medium-2 small-3 columns">
-                <label htmlFor="password" className="right inline">
+                <label
+                  htmlFor="password"
+                  className="right inline"
+                >
                   Password
                 </label>
               </div>
@@ -109,9 +120,18 @@ var LoginForm = React.createClass({
                 />
               </div>
             </div>
-            <div className="row">
-              <div className="large-6 large-centered medium-8 medium-centered small-12 columns">
-                <button type="submit" className="button expand">Log in</button>
+            <div
+              className="row"
+            >
+              <div
+                className="large-6 large-centered medium-8 medium-centered small-12 columns"
+              >
+                <button
+                  type="submit"
+                  className="button expand"
+                >
+                  Log in
+                </button>
               </div>
             </div>
           </form>
@@ -121,10 +141,31 @@ var LoginForm = React.createClass({
   },
 
   /**
-   * Show warning if authentication failed
+   * Checks if user log in, if yes redirect to main page or to page from
+   * transition
+   */
+  checkUserLogin: function() {
+    if( UserStore.isUserLoggedIn() ){
+      var nextPath = this.getQuery().nextPath;
+      if ( !nextPath ) {
+        nextPath = "user-panel";
+      }
+      this.transitionTo(nextPath);
+    }
+  },
+
+  /**
+   * Handle Authentication fail event Show warning if authentication failed
    */
   onAuthenticationFailed: function() {
     this.setState({authenticationFailed: true});
+  },
+
+  /**
+   * Handle User logged in event.
+   */
+  onUserLoggedIn: function() {
+    this.checkUserLogin();
   }
 });
 

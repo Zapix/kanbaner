@@ -1,8 +1,12 @@
-var React = require('react');
-var KanbanerApp = require('./components/KanbanerApp.react');
+var
+  React = require( "react" ),
+  Router = require( "react-router" ),
+  routes = require("./routes");
 
 
-React.render(
-  <KanbanerApp/>,
-  document.getElementById('app')
-);
+Router.run( routes, function(Handler) {
+  React.render(
+    <Handler/>,
+    document.getElementById('app')
+  );
+});

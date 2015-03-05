@@ -31,3 +31,9 @@
 ### Removed
 
 - Async requests form UserStore
+
+## [2015-03-05]
+
+### Added
+
+- routing with react-router application
