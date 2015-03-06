@@ -2,14 +2,14 @@ var
   React = require( "react" );
   Authentication = require( "../mixins/Authentication" );
 
+  AppHeader = require( "./AppHeader.react" );
+
   RepositoryList = React.createClass({
     mixins: [ Authentication ],
 
     render: function() {
       return (
-        <div>
-          <h2>Welcome to repository list</h2>
-        </div>
+        <AppHeader title="List of repositories"/>
       );
     }
   });

@@ -1,9 +1,12 @@
 var
-  React = require("react"),
+  React = require( "react" ),
+
+  AppHeader = require( "./AppHeader.react" ),
+
   About = React.createClass({
     render: function() {
       return (
-        <h2>About page</h2>
+        <AppHeader title="About" />
       );
     }
   });
