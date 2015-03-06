@@ -1,7 +1,7 @@
-.row.app-header {
+.app-header {
     margin-top: 50px;
 }
-.row.app-main {
+.app-main {
     margin-top: 20px;
 }
 table.repository-list {
@@ -12,6 +12,13 @@ table.repository-list {
     height: 20px;
 }
 
+.repository-list-item {
+  padding: 12px 0;
+}
+
+.repository-list-item:hover {
+  background: #eee;
+}
 /* Loader */
 
 

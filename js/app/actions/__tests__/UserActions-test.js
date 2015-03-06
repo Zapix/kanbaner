@@ -1,4 +1,5 @@
 jest.dontMock( "../../constants/KanbanerConstants" );
+jest.dontMock( "../../resources/GithubResource" );
 jest.dontMock( "../UserActions" );
 jest.dontMock( "../LoaderActions" );
 jest.dontMock( "q" );

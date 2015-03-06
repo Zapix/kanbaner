@@ -1,51 +1,25 @@
 var
   Q = require( "q" ),
-  $ = require( "jquery" ),
   btoa = require( "btoa" ),
 
   KanbanerDispatcher = require( "../dispatcher/KanbanerDispatcher" ),
   KanbanerConstants = require( "../constants/KanbanerConstants" ),
   LoaderActions = require( "./LoaderActions" ),
+  GithubResource = require( "../resources/GithubResource" );
 
-  ActionTypes = KanbanerConstants.ActionTypes;
-
-  /**
-   * Creates bases authorization token. sends it to github.com.
-   * If authorization success, send object with user and token to next promise ,
-   * Else send null to next promise
-   * @param {string} username
-   * @param {string} password
-   * @return {object} promise object
-   */
-  authenticateUser = function( token ) {
-    return Q($.ajax({
-      url: "https://api.github.com/user",
-      method: "get",
-      headers: {
-        "Authorization": "Basic " + token
-      }
-    }) )
-      .then(function ( data ) {
-        return Q({
-          user: data,
-          token: token
-        });
-      }, function() {
-        return Q( null );
-      });
-  };
+  ActionTypes = KanbanerConstants.ActionTypes,
 
   UserActions = {
 
     /**
      * Tries to authorize with current token
-     * @param token
-     * @returns {*}
+     * @param {string} token
+     * @return {object}
      */
     checkToken: function( token ){
       return LoaderActions.showLoader()
         .then(function() {
-          return authenticateUser( token )
+          return GithubResource.authenticateUser( token )
         })
         .then(function( data ) {
           if( data ) {

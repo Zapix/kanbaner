@@ -2,6 +2,7 @@ var
   React = require( "react" ),
 
   UserStore = require( "../stores/UserStore" ),
+  AppHeader = require( "./AppHeader.react" ),
 
   Profile = React.createClass({
     getInitialState: function() {
@@ -12,7 +13,7 @@ var
 
     render: function() {
       return (
-        <h1>Here will be a user profile</h1>
+        <AppHeader title="Your profile"/>
       );
     }
   });
