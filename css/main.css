@@ -12,6 +12,13 @@ table.repository-list {
     height: 20px;
 }
 
+.repository-list-item {
+  padding: 12px 0;
+}
+
+.repository-list-item:hover {
+  background: #eee;
+}
 /* Loader */
 
 

@@ -20,7 +20,7 @@ var
 
       return (
         <div
-          className="row repoistory-list-item">
+          className="row repository-list-item">
           <div
             className="large-5 medium-4 small-12 columns">
             <a href="#">{repository.full_name}</a>
