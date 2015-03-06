@@ -6,6 +6,9 @@ var KanbanerConstants = {
     USER_LOGIN_FAIL: null,
     USER_LOGOUT: null,
 
+    REPOSITORIES_LOAD_SUCCESS: null,
+    REPOSITORIES_LOAD_FAIL: null,
+
     LOADER_SHOW: null,
     LOADER_HIDE: null
   }),

@@ -1,6 +1,5 @@
 var
   Q = require( "q" ),
-  $ = require( "jquery" ),
   btoa = require( "btoa" ),
 
   KanbanerDispatcher = require( "../dispatcher/KanbanerDispatcher" ),
@@ -8,14 +7,14 @@ var
   LoaderActions = require( "./LoaderActions" ),
   GithubResource = require( "../resources/GithubResource" );
 
-  ActionTypes = KanbanerConstants.ActionTypes;
+  ActionTypes = KanbanerConstants.ActionTypes,
 
   UserActions = {
 
     /**
      * Tries to authorize with current token
-     * @param token
-     * @returns {*}
+     * @param {string} token
+     * @return {object}
      */
     checkToken: function( token ){
       return LoaderActions.showLoader()
