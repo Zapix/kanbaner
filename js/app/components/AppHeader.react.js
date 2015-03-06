@@ -10,7 +10,7 @@ var
     render: function() {
       return (
         <div className="row app-header">
-          <div class="large-12 small-12 medium-12 columns">
+          <div className="large-12 small-12 medium-12 columns">
             <h3>{this.props.title}</h3>
           </div>
         </div>
