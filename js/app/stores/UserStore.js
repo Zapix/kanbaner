@@ -11,7 +11,7 @@ var
   USER_LOGGED_OUT = "user-logged-out",
   USER_AUTHENTICATION_FAILED = "user-authentication-failed",
 
-  user = null;
+  user = null,
   token = null;
 
 /**

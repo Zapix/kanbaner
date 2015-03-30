@@ -1,6 +1,6 @@
 var
   React = require( "react" ),
-  PropTypes = React.PropTypes;
+  PropTypes = React.PropTypes,
 
   AppHeader = React.createClass({
     propTypes: {

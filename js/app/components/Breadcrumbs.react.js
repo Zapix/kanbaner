@@ -1,5 +1,5 @@
 var
-  React = require( "react" );
+  React = require( "react" ),
 
   Breadcrumbs = React.createClass({
     render: function() {

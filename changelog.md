@@ -39,3 +39,9 @@
 - routing with react-router application
 - loader
 - localStorage storing token support
+
+## [2015-03-30]
+
+### Added
+
+- Repository details page

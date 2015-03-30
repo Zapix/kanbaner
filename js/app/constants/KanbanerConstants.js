@@ -9,6 +9,9 @@ var KanbanerConstants = {
     REPOSITORIES_LOAD_SUCCESS: null,
     REPOSITORIES_LOAD_FAIL: null,
 
+    REPOSITORY_SELECT_SUCCESS: null,
+    REPOSITORY_SELECT_FAIL: null,
+
     LOADER_SHOW: null,
     LOADER_HIDE: null
   }),

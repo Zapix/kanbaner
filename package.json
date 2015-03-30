@@ -8,6 +8,8 @@
   },
   "main": "js/app/app.js",
   "dependencies": {
+    "babel": "^4.7.16",
+    "babelify": "^5.0.4",
     "btoa": "*",
     "flux": "^2.0.0",
     "jquery": "*",
@@ -15,7 +17,7 @@
     "localStorage": "^1.0.3",
     "object-assign": "^1.0.0",
     "q": "^1.2.0",
-    "react": "^0.12.0",
+    "react": "^0.12.2",
     "react-router": "^0.12.4"
   },
   "devDependencies": {
@@ -35,6 +37,7 @@
   "author": "Aleksandr Aibulatov",
   "browserify": {
     "transform": [
+      "babelify",
       "reactify",
       "envify"
     ]
