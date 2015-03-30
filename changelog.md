@@ -44,4 +44,4 @@
 
 ### Added
 
-- Repository details page
+- Repository detail page
