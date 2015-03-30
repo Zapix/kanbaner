@@ -40,8 +40,16 @@
 - loader
 - localStorage storing token support
 
+<<<<<<< HEAD
 ## [2015-03-06]
 
 ### Added
 
 - Available repositories loading
+=======
+## [2015-03-30]
+
+### Added
+
+- Repository detail page
+>>>>>>> 27-repository-js

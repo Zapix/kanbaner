@@ -5,7 +5,7 @@ var
   KanbanerDispatcher = require( "../dispatcher/KanbanerDispatcher" ),
   KanbanerConstants = require( "../constants/KanbanerConstants" ),
   LoaderActions = require( "./LoaderActions" ),
-  GithubResource = require( "../resources/GithubResource" );
+  GithubResource = require( "../resources/GithubResource" ),
 
   ActionTypes = KanbanerConstants.ActionTypes,
 

@@ -74,6 +74,19 @@ var
             return Q( null );
           }
         );
+    },
+
+    getRepositoryDetail: function( token, repositoryFullName ) {
+      return this.sendRequest(
+        "https://api.github.com/repos/" + repositoryFullName,
+        token
+      )
+        .then(function( data ) {
+          return Q( data );
+        },
+        function() {
+          return Q( null );
+        });
     }
   };
 

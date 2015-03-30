@@ -15,7 +15,7 @@ describe( "LoaderStore", function() {
   beforeEach(function() {
     KanbanerDispatcher = require( "../../dispatcher/KanbanerDispatcher");
     LoadStore = require( "../LoaderStore" );
-    callback = KanbanerDispatcher.register.mock.calls[0][0]
+    callback = KanbanerDispatcher.register.mock.calls[0][0];
   });
 
   it( "check show loader", function() {
@@ -25,8 +25,8 @@ describe( "LoaderStore", function() {
         type: ActionTypes.LOADER_SHOW
       }
     };
-    callback(payload);
-    expect(LoadStore.getLoader()).toBeTruthy();
+    callback( payload );
+    expect( LoadStore.getLoader() ).toBeTruthy();
   });
 
   it( "check show loader", function() {

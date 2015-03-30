@@ -3,14 +3,15 @@ var
   Router = require( "react-router" ),
   RouteHandler = Router.RouteHandler,
 
-  Authentication = require( "../mixins/Authentication" );
+  Authentication = require( "../mixins/Authentication" ),
 
   UserPanel = React.createClass({
     mixins: [ Authentication ],
 
     render: function() {
+      console.log("[UserPanel]", this.props);
       return (
-        <RouteHandler/>
+        <RouteHandler {...this.props} />
       )
     }
   });
