@@ -52,4 +52,3 @@
 ### Added
 
 - Repository detail page
->>>>>>> 27-repository-js
