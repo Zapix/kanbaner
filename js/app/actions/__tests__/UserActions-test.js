@@ -43,7 +43,7 @@ describe( "UserActions", function() {
         expect( KanbanerDispatcher.handleViewAction ).toBeCalled();
 
         callCount = KanbanerDispatcher.handleViewAction.mock.calls.filter(
-          function(call) {
+          function( call ) {
             return call[0].type == ActionTypes.USER_LOGIN_SUCCESS;
           }
         );
@@ -68,7 +68,7 @@ describe( "UserActions", function() {
         expect( KanbanerDispatcher.handleViewAction ).toBeCalled();
 
         callCount = KanbanerDispatcher.handleViewAction.mock.calls.filter(
-          function(call) {
+          function( call ) {
             return call[0].type == ActionTypes.USER_LOGIN_FAIL;
           }
         );
