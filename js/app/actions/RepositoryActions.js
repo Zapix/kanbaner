@@ -70,7 +70,6 @@ var
           );
         })
         .then( function( data ) {
-          console.log( "[RepositoryActions]", data );
           if ( data ) {
             KanbanerDispatcher.handleViewAction({
               type: ActionTypes.REPOSITORY_SELECT_SUCCESS,

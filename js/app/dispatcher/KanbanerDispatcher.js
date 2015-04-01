@@ -1,7 +1,7 @@
-var assign = require('object-assign');
-var Dispatcher = require('flux').Dispatcher;
+var assign = require( "object-assign" );
+var Dispatcher = require( "flux" ).Dispatcher;
 
-var KanbanerConstants = require('../constants/KanbanerConstants');
+var KanbanerConstants = require( "../constants/KanbanerConstants" );
 
 var PayloadSources = KanbanerConstants.PayloadSources;
 
