@@ -3,9 +3,12 @@ var
   Router = require( "react-router" ),
   AppHeader = require( "./AppHeader.react" ),
   Breadcrumbs = require( "./Breadcrumbs.react" ),
+  RepositoryDetailsBar = require( "./RepositoryDetailsBar.react" ),
+  IssueDesk = require( "./IssueDesk.react" ),
   UserStore = require( "../stores/UserStore" ),
   RepositoryStore = require( "../stores/RepositoryStore" ),
   RepositoryActions = require( "../actions/RepositoryActions" ),
+
 
   Link = Router.Link,
   PropTypes = React.PropTypes,
@@ -85,6 +88,14 @@ var
               {selectedRepository.full_name}
             </Link>
           </Breadcrumbs>
+          <div
+            className="app-main">
+            <RepositoryDetailsBar
+              repositoryOwner={repositoryOwner}
+              repositoryName={repositoryName}
+            />
+            <IssueDesk />
+          </div>
         </div>
       );
     },

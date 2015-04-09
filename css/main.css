@@ -19,6 +19,60 @@ table.repository-list {
 .repository-list-item:hover {
   background: #eee;
 }
+
+.issue-card {
+  border: 1px solid #d8d8d8;
+  border-radius: 3px;
+  font-size: 0.9em;
+  background-color: #008CBA;
+  margin: 5px;
+}
+
+.issue-card .header {
+  color: #fff;
+  padding: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.issue-card .header .issue-number {
+  width: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.issue-card .header .issue-title{
+  text-overflow: ellipsis;
+  padding-right: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.issue-card .details {
+  background-color: #fff;
+  padding: 2px;
+}
+
+.issue-card .details .short-description {
+  min-height: 40px;
+  padding: 2px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.issue-card .details .assigned {
+  padding: 2px;
+  width: 50px;
+}
+
+.issue-card .details .assigned .nickname {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 /* Loader */
 
 
