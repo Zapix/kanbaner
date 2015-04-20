@@ -16,6 +16,7 @@
     "keymirror": "~0.1.0",
     "localStorage": "^1.0.3",
     "object-assign": "^1.0.0",
+    "parse-link-header": "^0.2.0",
     "q": "^1.2.0",
     "react": "^0.12.2",
     "react-router": "^0.12.4"

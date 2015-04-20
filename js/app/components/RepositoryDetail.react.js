@@ -94,7 +94,10 @@ var
               repositoryOwner={repositoryOwner}
               repositoryName={repositoryName}
             />
-            <IssueDesk />
+            <IssueDesk
+              repositoryOwner={repositoryOwner}
+              repositoryName={repositoryName}
+            />
           </div>
         </div>
       );
@@ -105,7 +108,7 @@ var
     },
 
     handleRepositorySelectFailed: function() {
-      console.log( "[ReposiotryDetail]", "Go to 404 page" );
+      console.log( "[RepositoryDetail]", "Go to 404 page" );
     }
   });
 

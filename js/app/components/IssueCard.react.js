@@ -44,7 +44,6 @@ var
         renderedNickname,
         renderedImage;
 
-      logger.debug( issue.assignee );
       if ( issue.state == 'open' && ! issue.assignee ) {
         return "";
       }
