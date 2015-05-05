@@ -4,7 +4,7 @@ var
   KanbanerDispatcher = require( "../dispatcher/KanbanerDispatcher" ),
   KanbanerConstants = require( "../constants/KanbanerConstants" ),
 
-  ActionTypes = KanbanerConstants.ActionTypes;
+  ActionTypes = KanbanerConstants.ActionTypes,
 
   LoaderActions = {
     showLoader: function() {

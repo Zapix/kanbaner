@@ -3,9 +3,9 @@ var
   Router = require( "react-router" ),
   routes = require("./routes");
 
-Router.run( routes, function(Handler) {
+Router.run( routes, function(Handler, state) {
   React.render(
-    <Handler/>,
+    <Handler params={state.params} />,
     document.getElementById('app')
   );
 });

@@ -1,6 +1,9 @@
 var
   React = require( "react" ),
+  Router = require( "react-router" ),
+
   PropTypes = React.PropTypes,
+  Link = Router.Link,
 
   RepositoryListItem = React.createClass({
     propTypes: {
@@ -23,7 +26,14 @@ var
           className="row repository-list-item">
           <div
             className="large-5 medium-4 small-12 columns">
-            <a href="#">{repository.full_name}</a>
+            <Link
+              to="repository-detail"
+              params={{
+                repositoryOwner: repository.owner.login,
+                repositoryName: repository.name
+              }} >
+            {repository.full_name}
+            </Link>
           </div>
           <div
             className="large-3 medium-3 hide-for-small-only columns text-center">

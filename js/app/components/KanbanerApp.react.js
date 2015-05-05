@@ -8,13 +8,13 @@ var
   Navigation = require( "./Navigation.react" ),
   Footer = require( "./Footer.react" ),
   Loader = require( "./Loader.react" ),
-  LocalStorage = require( "./LocalStorage.react" );
+  LocalStorage = require( "./LocalStorage.react" ),
 
   getState = function() {
     return {
       isUserLoggedIn: UserStore.isUserLoggedIn()
     };
-  };
+  },
 
   KanbanerApp = React.createClass(
     {
@@ -37,7 +37,7 @@ var
         return (
           <div>
             <Navigation/>
-            <RouteHandler/>
+            <RouteHandler {...this.props}/>
             <Footer/>
             <Loader/>
             <LocalStorage />

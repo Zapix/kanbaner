@@ -1,5 +1,5 @@
 var
-  React = require( "react" );
+  React = require( "react" ),
 
   RepositoryListHead = React.createClass({
     render: function() {

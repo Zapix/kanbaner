@@ -1,7 +1,7 @@
 var
   React = require( "react" ),
   Router = require( "react-router" ),
-  Link = Router.Link
+  Link = Router.Link,
 
   UserStore = require( "../stores/UserStore" ),
   UserAction = require( "../actions/UserActions" ),
