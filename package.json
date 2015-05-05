@@ -19,12 +19,14 @@
     "parse-link-header": "^0.2.0",
     "q": "^1.2.0",
     "react": "^0.12.2",
-    "react-router": "^0.12.4"
+    "react-router": "^0.12.4",
+    "source-map-support": "^0.2.10"
   },
   "devDependencies": {
+    "babel-jest": "*",
     "browserify": "^6.2.0",
     "envify": "^3.0.0",
-    "jest-cli": "~0.1.17",
+    "jest-cli": "*",
     "reactify": "^0.15.2",
     "uglify-js": "~2.4.15",
     "watchify": "^2.1.1"
@@ -44,7 +46,19 @@
     ]
   },
   "jest": {
-    "collectCoverage": true,
-    "rootDir": "./js/app"
+    "testPathDirs": [
+      "js/app/"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/bower_components/"
+    ],
+    "coverage": true,
+    "setupEnvScriptFile": "<rootDir>/jest-prepare.js",
+    "scriptPreprocessor": "<rootDir>/jest-preprocessor.js",
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react",
+      "<rootDir>/node_modules/source-map-support"
+    ]
   }
 }

@@ -1,0 +1,6 @@
+test:
+  image: zapix/kanbaner
+  command: npm test --coverage
+  volumes:
+    - ./js:/src/js
+    - ./coverage:/src/coverage
