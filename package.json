@@ -20,7 +20,8 @@
     "q": "^1.2.0",
     "react": "^0.12.2",
     "react-router": "^0.12.4",
-    "source-map-support": "^0.2.10"
+    "source-map-support": "^0.2.10",
+    "react-tools": "*"
   },
   "devDependencies": {
     "babel-jest": "*",
@@ -53,7 +54,7 @@
       "/node_modules/",
       "/bower_components/"
     ],
-    "coverage": true,
+    "collectCoverage": true,
     "setupEnvScriptFile": "<rootDir>/jest-prepare.js",
     "scriptPreprocessor": "<rootDir>/jest-preprocessor.js",
     "unmockedModulePathPatterns": [

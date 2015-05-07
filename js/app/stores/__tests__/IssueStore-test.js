@@ -38,4 +38,72 @@ describe( "IssueStore", function() {
 
     expect( IssueStore.getIssueList().length ).toEqual( 2 );
   });
+
+  if( "Check clear issues", function() {
+      var
+        payloadLoadSuccess = {
+          source: PayloadSources.VIEW_ACTION,
+          action: {
+            type: ActionTypes.ISSUES_LOAD_SUCCESS,
+            data: [
+              {
+                id: 1
+              },
+              {
+                id: 2
+              }
+            ]
+          }
+        },
+        payloadClear = {
+          source: PayloadSources.VIEW_ACTION,
+          action: {
+            type: ActionTypes.ISSUES_CLEAR
+          }
+        };
+
+      callback( payloadLoadSuccess );
+      expect( IssueStore.getIssueList().length ).toEqual( 2 );
+
+      callback(payloadClear )
+      expect( IssueStore.getIssueList().length ).toEqual( 0 );
+    } );
+
+  it( "Add/remove issue load listeners", function() {
+    var
+      firstListener = jest.genMockFunction(),
+      secondListener = jest.genMockFunction(),
+      payload = {
+        source: PayloadSources.ViewAction,
+        action: {
+          type: ActionTypes.ISSUES_LOAD_SUCCESS,
+          data: [
+            {
+              id: 12
+            },
+            {
+              id: 42
+            }
+          ]
+        }
+      }
+
+    IssueStore.addIssueListChangedListener( firstListener );
+    IssueStore.addIssueListChangedListener( secondListener );
+
+    callback( payload );
+
+
+    expect( firstListener ).toBeCalled();
+    expect( secondListener ).toBeCalled();
+
+    IssueStore.removeIssueListChangedListener( secondListener );
+
+    callback( payload );
+
+    expect( firstListener.mock.calls.length ).toEqual( 2 );
+    expect( secondListener.mock.calls.length ).toEqual( 1 );
+  });
+
+
 });

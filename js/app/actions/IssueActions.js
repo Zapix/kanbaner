@@ -22,7 +22,7 @@ var
 
         var
           loopFunc = function(page, data) {
-            console.log( "Loop for page: " + page );
+            logger.debug( "Loop for page: " + page );
             return GithubResource.getRepositoryIssues(
               token,
               repositoryFullName,
@@ -30,6 +30,7 @@ var
               page
             )
               .then(function ( result ) {
+                logger.debug( "Loop " + page + " result:", result);
                 issuesAccumulator = issuesAccumulator.concat( result.data );
 
                 if ( result.meta && result.meta.next ) {
@@ -41,8 +42,6 @@ var
 
         return loopFunc( 1 )
           .then(function() {
-            logger.debug( "Open issues:" );
-            logger.debug( issuesAccumulator );
             KanbanerDispatcher.handleViewAction({
               type: ActionTypes.ISSUES_LOAD_SUCCESS,
               data: issuesAccumulator
@@ -51,29 +50,48 @@ var
           });
       };
 
-      return Q.allSettled([
-        getAllOpenIssues(),
-        GithubResource.getRepositoryIssues(
-          token,
-          repositoryFullName,
-          'closed',
-          1
-        ).then(function( result ) {
-            logger.debug( "Closed issues:" );
-            logger.debug( result );
-            KanbanerDispatcher.handleViewAction({
-              type: ActionTypes.ISSUES_LOAD_SUCCESS,
-              data: result.data
-            });
-            return Q( result );
-          })
-      ]);
+      //return Q.allSettled([
+      //  getAllOpenIssues(),
+      //  GithubResource.getRepositoryIssues(
+      //    token,
+      //    repositoryFullName,
+      //    'closed',
+      //    1
+      //  ).then(function( result ) {
+      //      logger.debug( "Closed issues:" );
+      //      logger.debug( result );
+      //      KanbanerDispatcher.handleViewAction({
+      //        type: ActionTypes.ISSUES_LOAD_SUCCESS,
+      //        data: result.data
+      //      });
+      //      return Q( result );
+      //    })
+      //]);
+
+      return getAllOpenIssues()
+        .then(function() {
+          logger.debug( "Get closed issues" );
+          return GithubResource.getRepositoryIssues(
+            token,
+            repositoryFullName,
+            'closed',
+            1
+          )
+            .then(function( result ) {
+              KanbanerDispatcher.handleViewAction({
+                type: ActionTypes.ISSUES_LOAD_SUCCESS,
+                data: result.data
+              });
+              return Q( result );
+          });
+        });
     },
 
     clearIssues: function() {
       KanbanerDispatcher.handleViewAction({
         type: ActionTypes.ISSUES_CLEAR
       });
+      return Q( null );
     }
   };
 
