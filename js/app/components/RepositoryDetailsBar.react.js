@@ -6,6 +6,8 @@ var
   PropTypes = React.PropTypes,
   logger = new Logger( "RepositoryDetailsBar" ),
 
+  Link = Router.Link,
+
   RepositoryDetailsBar = React.createClass({
     propTypes: {
       repositoryOwner: PropTypes.string.isRequired,
@@ -13,19 +15,25 @@ var
     },
 
     render: function() {
-      logger.debug( "[RepositoryDetailsBar]", this.props.repositoryOwner );
-      logger.debug( "[RepositoryDetailsBar]", this.props.repositoryName );
+      var
+        repositoryOwner = this.props.repositoryOwner,
+        repositoryName = this.props.repositoryName;
+
       return (
         <div
           className="row repository-details-bar">
           <div
             className="large-12 medium-12 small-12 columns">
-            <a
+            <Link
               className="right button"
-              to=""
+              to="create-issue"
+              params={{
+                repositoryOwner: repositoryOwner,
+                repositoryName: repositoryName
+              }}
             >
               New Issue
-            </a>
+            </Link>
           </div>
         </div>
       )

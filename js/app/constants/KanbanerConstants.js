@@ -11,6 +11,7 @@ var KanbanerConstants = {
 
     REPOSITORY_SELECT_SUCCESS: null,
     REPOSITORY_SELECT_FAIL: null,
+    REPOSITORY_SELECT_CLEAR: null,
 
     ISSUES_CLEAR: null,
     ISSUES_LOAD_SUCCESS: null,

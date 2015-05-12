@@ -5,6 +5,9 @@ var
   KanbanerConstants = require( "../constants/KanbanerConstants" ),
   LoaderActions = require( "./LoaderActions" ),
   GithubResource = require( "../resources/GithubResource" ),
+  Logger = require( "../utils/Logger" ),
+
+  logger = new Logger( "RepositoryActions" ),
 
   ActionTypes = KanbanerConstants.ActionTypes,
 
@@ -70,6 +73,7 @@ var
           );
         })
         .then( function( data ) {
+
           if ( data ) {
             KanbanerDispatcher.handleViewAction({
               type: ActionTypes.REPOSITORY_SELECT_SUCCESS,
@@ -84,11 +88,15 @@ var
 
           return Q( "fail" );
         } )
-        .then( function( data ) {
-          console.log( "[RepositoryActions]", data );
-          return Q( data )
-        } )
         .then( LoaderActions.hideLoader );
+    },
+
+    clearSelectedRepository: function() {
+      KanbanerDispatcher.handleViewAction({
+        type: ActionTypes.REPOSITORY_SELECT_CLEAR
+      });
+
+      return Q( "clear" );
     }
   };
 

@@ -10,7 +10,9 @@ var
   About = require( "./components/About.react" ),
   UserPanel = require( "./components/UserPanel.react" ),
   RepositoryList = require( "./components/RepositoryList.react" ),
+  SelectedRepository = require( "./components/SelectedRepository.react" ),
   RepositoryDetail = require( "./components/RepositoryDetail.react" ),
+  CreateIssue = require( "./components/CreateIssue.react" ),
   Profile = require( "./components/Profile.react" ),
 
   routes = (
@@ -21,7 +23,10 @@ var
       <Route name="user-panel" handler={UserPanel}>
         <DefaultRoute handler={RepositoryList} />
         <Route name="profile" handler={Profile} />
-        <Router name="repository-detail" path=":repositoryOwner/:repositoryName" handler={RepositoryDetail} />
+        <Route name="repository-detail" path=":repositoryOwner/:repositoryName" handler={SelectedRepository}>
+          <Router name="create-issue" handler={CreateIssue} />
+          <DefaultRoute handler={RepositoryDetail}/>
+        </Route>
       </Route>
     </Router>
   );
