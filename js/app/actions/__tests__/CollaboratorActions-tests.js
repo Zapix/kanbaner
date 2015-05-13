@@ -35,7 +35,7 @@ describe( "CollaboratorActions", function() {
       "github/repository"
     )
       .then(function( data ) {
-        expect( data.length ).toEqual( 2 )
+        expect( data.length ).toEqual( 2 );
         expect( GithubResource.getRepositoryCollaborators.calls.length )
           .toEqual( 1 );
       });
@@ -76,7 +76,7 @@ describe( "CollaboratorActions", function() {
   });
 
   it( "Check sending clear collaborators action", function() {
-    CollaboratorActions.clearCollaborators().then(function() {
+    CollaboratorActions.clearCollaboratorList().then(function() {
       expect( KanbanerDispatcher.handleViewAction ).toBeCalled();
     });
   });

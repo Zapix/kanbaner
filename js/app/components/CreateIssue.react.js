@@ -3,6 +3,7 @@ var
   Router = require( "react-router" ),
   AppHeader = require( "./AppHeader.react" ),
   Breadcrumbs = require( "./Breadcrumbs.react" ),
+  CollaboratorSelect = require( "./CollaboratorSelect.react" ),
 
   UserStore = require( "../stores/UserStore" ),
   RepositoryStore = require( "../stores/RepositoryStore" ),
@@ -65,11 +66,7 @@ var
                       />
                     </div>
                     <div>
-                      <select id="assignee" name="assignee">
-                        <option value="">Assignee</option>
-                        <option value="Zapix">Zapix</option>
-                        <option value="Atorich">Atorich</option>
-                      </select>
+                      <CollaboratorSelect id="assignee" name="assignee"/>
                     </div>
                   </div>
                 </div>

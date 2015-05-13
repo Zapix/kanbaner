@@ -61,7 +61,7 @@ var
      * Send action to clear collaborators
      * retrun {object} Q-object
      */
-    clearCollaborators: function() {
+    clearCollaboratorList: function() {
       KanbanerDispatcher.handleViewAction({
         type: ActionTypes.COLLABORATORS_CLEAR
       });

@@ -183,7 +183,7 @@ var
       }
 
       return this.sendRequest(
-        "https://api.github.com/" + repositoryFullName + "/collaborators",
+        "https://api.github.com/repos/" + repositoryFullName + "/collaborators",
         token,
         "get",
         {
