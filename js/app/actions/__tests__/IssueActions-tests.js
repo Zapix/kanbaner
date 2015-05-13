@@ -24,7 +24,7 @@ describe( "IssueActions", function() {
     IssueActions = require( "../IssueActions" );
   });
 
-  it( "Get repository list success with one request", function() {
+  it( "Get issue list success with one request", function() {
     GithubResource.getRepositoryIssues = jest.genMockFunction();
     GithubResource.getRepositoryIssues.mockReturnValue(Q({
       data: [],
@@ -71,7 +71,7 @@ describe( "IssueActions", function() {
 
     IssueActions.getIssueList( "tokenvalue", "github/repository" )
       .then(function() {
-        expect( GithubResource.getRepositoryIssues.calls.length ).toEqual( 2 );
+        expect( GithubResource.getRepositoryIssues.calls.length ).toEqual( 3 );
       });
   });
 

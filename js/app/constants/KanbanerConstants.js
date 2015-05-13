@@ -17,6 +17,9 @@ var KanbanerConstants = {
     ISSUES_LOAD_SUCCESS: null,
     ISSUES_LOAD_FAIL: null,
 
+    COLLABORATORS_CLEAR: null,
+    COLLABORATORS_LOAD_SUCCESS: null,
+
     LOADER_SHOW: null,
     LOADER_HIDE: null
   }),
