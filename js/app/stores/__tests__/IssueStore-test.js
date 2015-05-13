@@ -39,7 +39,7 @@ describe( "IssueStore", function() {
     expect( IssueStore.getIssueList().length ).toEqual( 2 );
   });
 
-  if( "Check clear issues", function() {
+  it( "Check clear issues", function() {
       var
         payloadLoadSuccess = {
           source: PayloadSources.VIEW_ACTION,
@@ -65,7 +65,7 @@ describe( "IssueStore", function() {
       callback( payloadLoadSuccess );
       expect( IssueStore.getIssueList().length ).toEqual( 2 );
 
-      callback(payloadClear )
+      callback(payloadClear );
       expect( IssueStore.getIssueList().length ).toEqual( 0 );
     } );
 
@@ -86,7 +86,7 @@ describe( "IssueStore", function() {
             }
           ]
         }
-      }
+      };
 
     IssueStore.addIssueListChangedListener( firstListener );
     IssueStore.addIssueListChangedListener( secondListener );
