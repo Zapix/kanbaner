@@ -5,6 +5,7 @@ var
   Breadcrumbs = require( "./Breadcrumbs.react" ),
   RepositoryDetailsBar = require( "./RepositoryDetailsBar.react" ),
   IssueDesk = require( "./IssueDesk.react" ),
+  InternalMessageList = require( "./InternalMessageList.react" ),
   RepositoryStore = require( "../stores/RepositoryStore" ),
 
   Logger = require( "../utils/Logger" ),
@@ -43,6 +44,7 @@ var
               {repository.full_name}
             </Link>
           </Breadcrumbs>
+          <InternalMessageList />
           <div
             className="app-main">
             <RepositoryDetailsBar

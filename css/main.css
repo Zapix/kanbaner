@@ -205,6 +205,10 @@ table.repository-list {
   transition: opacity 0.15s linear 3.1s;
 }
 
+.internal-messages {
+  margin-top: 20px;
+}
+
 @-webkit-keyframes done {
   10% {
     transform: scale(1.1);

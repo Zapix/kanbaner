@@ -11,6 +11,7 @@
     "babel": "^4.7.16",
     "babelify": "^5.0.4",
     "btoa": "*",
+    "classnames": "^2.1.1",
     "flux": "^2.0.0",
     "jquery": "*",
     "keymirror": "~0.1.0",
@@ -20,8 +21,8 @@
     "q": "^1.2.0",
     "react": "^0.12.2",
     "react-router": "^0.12.4",
-    "source-map-support": "^0.2.10",
-    "react-tools": "*"
+    "react-tools": "*",
+    "source-map-support": "^0.2.10"
   },
   "devDependencies": {
     "babel-jest": "*",

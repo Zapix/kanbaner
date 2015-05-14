@@ -18,7 +18,7 @@ var
      * @param {boolean} returnXhr Return xhr object regardless success/failure.
      * Default: false
      */
-    sendRequest: function(url, token, type, data, returnXhr) {
+    sendRequest: function(url, token, type, data, returnXhr, toJson) {
       if( !type ) {
         type = "get";
       }
@@ -29,6 +29,11 @@ var
 
       if( !token || !url ){
         throw Error("Url and token should be set");
+      }
+
+      if( toJson ) {
+        console.log( "Parse to json" );
+        data = JSON.stringify( data );
       }
 
       if( !returnXhr ) {
@@ -166,6 +171,30 @@ var
           })
         }, function() {
           return Q( null );
+        });
+    },
+
+    /**
+     * Send post request to create new issue. Return object with response_status
+     * and data as json
+     * @param token
+     * @param repositoryFullName
+     * @param newIssueData
+     */
+    createIssue: function( token, repositoryFullName, newIssueData ) {
+      return this.sendRequest(
+        "https://api.github.com/repos/" + repositoryFullName + "/issues",
+        token,
+        "post",
+        newIssueData,
+        true,
+        true
+      )
+        .then(function( xhr ) {
+          return Q({
+            status: xhr.status,
+            data: xhr.responseJSON
+          });
         });
     },
 

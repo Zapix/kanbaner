@@ -74,7 +74,7 @@ describe( "IssueStore", function() {
       firstListener = jest.genMockFunction(),
       secondListener = jest.genMockFunction(),
       payload = {
-        source: PayloadSources.ViewAction,
+        source: PayloadSources.VIEW_ACTION,
         action: {
           type: ActionTypes.ISSUES_LOAD_SUCCESS,
           data: [
@@ -105,5 +105,138 @@ describe( "IssueStore", function() {
     expect( secondListener.mock.calls.length ).toEqual( 1 );
   });
 
+  it( "Test change store issue create start", function() {
+    var
+      payload = {
+        source: PayloadSources.VIEW_ACTION,
+        action: {
+          type: ActionTypes.ISSUE_CREATE_START
+        }
+      };
 
+    callback( payload );
+
+    expect( IssueStore.getIssueCreateStatus() ).toEqual(
+      IssueStore.issueCreateStatusTypes.STARTED
+    );
+  });
+
+  it( "Issue create status success", function() {
+    var
+      payload = {
+        source: PayloadSources.VIEW_ACTION,
+        action: {
+          type: ActionTypes.ISSUE_CREATE_SUCCESS,
+          data: {
+            id: 1,
+            title: "New issue"
+          }
+        }
+      };
+
+    callback( payload );
+
+    expect( IssueStore.getIssueCreateStatus() ).toEqual(
+      IssueStore.issueCreateStatusTypes.CREATED
+    );
+  });
+
+  it( "Issue create status failed", function() {
+    var
+      payload = {
+        source: PayloadSources.VIEW_ACTION,
+        action: {
+          type: ActionTypes.ISSUE_CREATE_FAIL,
+          data: {
+            title: "Required field"
+          }
+        }
+      };
+
+    callback( payload );
+
+    expect( IssueStore.getIssueCreateStatus() ).toEqual(
+      IssueStore.issueCreateStatusTypes.FAILED
+    );
+
+    expect( IssueStore.getIssueCreateErrors() ).not.toBeNull();
+  });
+
+  it( "Issue create status error", function() {
+    var
+      payload = {
+        source: PayloadSources.VIEW_ACTION,
+        action: {
+          type: ActionTypes.ISSUE_CREATE_ERROR
+        }
+      };
+
+    callback( payload );
+
+    expect( IssueStore.getIssueCreateStatus() ).toEqual(
+      IssueStore.issueCreateStatusTypes.ERROR
+    );
+  });
+
+  it( "Issue create status clear", function() {
+    var
+      payloadFailed = {
+        source: PayloadSources.VIEW_ACTION,
+        action: {
+          type: ActionTypes.ISSUE_CREATE_FAIL,
+          data: {
+            title: "Required field"
+          }
+        }
+      },
+      payloadClear = {
+        source: PayloadSources.VIEW_ACTION,
+        action: {
+          type: ActionTypes.ISSUE_CREATE_CLEAR
+        }
+      };
+
+    callback( payloadFailed );
+    callback( payloadClear );
+
+    expect( IssueStore.getIssueCreateStatus() ).toEqual(
+      IssueStore.issueCreateStatusTypes.NOT_STARTED
+    );
+
+    expect( IssueStore.getIssueCreateErrors() ).toBeNull();
+  } );
+
+  it( "Add/Remove issue status create listeners", function() {
+    var
+      payloadCreateStart = {
+        source: PayloadSources.VIEW_ACTION,
+        action: {
+          type: ActionTypes.ISSUE_CREATE_START
+        }
+      },
+      payloadCreateSuccess = {
+        source: PayloadSources.VIEW_ACTION,
+        action: {
+          type: ActionTypes.ISSUE_CREATE_SUCCESS,
+          data: {
+            id: 12,
+            title: "New issue"
+          }
+        }
+      },
+      firstListener = jest.genMockFunction(),
+      secondListener = jest.genMockFunction();
+
+    IssueStore.addIssueCreateStatusChangedListener( firstListener );
+    IssueStore.addIssueCreateStatusChangedListener( secondListener );
+
+    callback( payloadCreateStart );
+
+    IssueStore.removeIssueCreateStatusChangedListener( secondListener );
+
+    callback( payloadCreateSuccess );
+
+    expect( firstListener.mock.calls.length ).toEqual( 2 );
+    expect( secondListener.mock.calls.length ).toEqual( 1 );
+  });
 });
