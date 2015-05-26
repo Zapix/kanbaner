@@ -141,6 +141,34 @@ describe( "LoadStore", function() {
     expect(repository.id).toBe( 1 );
   });
 
+  it( "Repository select clear", function() {
+    var
+      repository,
+      repositorySelectPayload = {
+        source: PayloadSources.VIEW_ACTION,
+        action: {
+          type: ActionTypes.REPOSITORY_SELECT_SUCCESS,
+          data: {
+            id: 1
+          }
+        }
+      },
+      repositoryClearPayload = {
+        source: PayloadSources.VIEW_ACTION,
+        action: {
+          type: ActionTypes.REPOSITORY_SELECT_CLEAR,
+        }
+      };
+
+    callback( repositorySelectPayload );
+
+    callback( repositoryClearPayload );
+
+    repository = RepositoryStore.getSelectedRepository();
+
+    expect( repository ).toBeNull();
+  } );
+
   it( "Add/remove select listeners", function() {
     var
       firstListener = jest.genMockFunction(),

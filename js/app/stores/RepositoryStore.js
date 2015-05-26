@@ -5,6 +5,10 @@ var
   KanbanerDispatcher = require( "../dispatcher/KanbanerDispatcher" ),
   KanbanerConstants = require( "../constants/KanbanerConstants" ),
 
+  Logger = require( "../utils/Logger" ),
+
+  logger = new Logger( "RepositoryStore" ),
+
   ActionTypes = KanbanerConstants.ActionTypes,
 
   REPOSITORY_LIST_CHANGED = "repository-list-changed",
@@ -31,6 +35,11 @@ var
 
   repositorySelectFailed = function () {
     RepositoryStore.emitRepositorySelectFailedEvent();
+  },
+
+  clearSelectRepository = function() {
+    selectedRepository = null;
+    RepositoryStore.emitRepositorySelectedEvent();
   },
 
   RepositoryStore = assign({}, EventEmitter.prototype, {
@@ -116,6 +125,7 @@ var
      */
     emitRepositorySelectedEvent: function() {
       this.emit( REPOSITORY_SELECTED )
+      logger.debug("Emit repository selected");
     },
 
     /**
@@ -159,6 +169,9 @@ var
           break;
         case ActionTypes.REPOSITORY_SELECT_FAIL:
           repositorySelectFailed();
+          break;
+        case ActionTypes.REPOSITORY_SELECT_CLEAR:
+          clearSelectRepository();
           break;
       }
     }

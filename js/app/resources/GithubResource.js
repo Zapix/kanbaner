@@ -18,7 +18,7 @@ var
      * @param {boolean} returnXhr Return xhr object regardless success/failure.
      * Default: false
      */
-    sendRequest: function(url, token, type, data, returnXhr) {
+    sendRequest: function(url, token, type, data, returnXhr, toJson) {
       if( !type ) {
         type = "get";
       }
@@ -29,6 +29,11 @@ var
 
       if( !token || !url ){
         throw Error("Url and token should be set");
+      }
+
+      if( toJson ) {
+        console.log( "Parse to json" );
+        data = JSON.stringify( data );
       }
 
       if( !returnXhr ) {
@@ -132,7 +137,7 @@ var
      * @param {string} token The token for authorize
      * @param {string} repositoryFullName The full name of repository(zapix/kanbanner)
      * @param {string} state The state of issues: 'all', 'open', 'close'. Default is 'all'
-     * @param {integer} page The request page number
+     * @param {number} page The request page number
      * @returns {object} Q object with 2 attributes: data - list of issues and
      * meta - additioal infor about request
      */
@@ -142,7 +147,7 @@ var
       }
 
       if ( !page ) {
-        page = 0;
+        page = 1;
       }
 
       return this.sendRequest(
@@ -164,6 +169,66 @@ var
             data: xhr.responseJSON,
             meta: linkInfo
           })
+        }, function() {
+          return Q( null );
+        });
+    },
+
+    /**
+     * Send post request to create new issue. Return object with response_status
+     * and data as json
+     * @param token
+     * @param repositoryFullName
+     * @param newIssueData
+     */
+    createIssue: function( token, repositoryFullName, newIssueData ) {
+      return this.sendRequest(
+        "https://api.github.com/repos/" + repositoryFullName + "/issues",
+        token,
+        "post",
+        newIssueData,
+        true,
+        true
+      )
+        .then(function( xhr ) {
+          return Q({
+            status: xhr.status,
+            data: xhr.responseJSON
+          });
+        });
+    },
+
+    /**
+     * Get list of collaborators for current repository. Request sends with token
+     * IF request handle success the return Q object with list of issues and
+     * info has request next page or not
+     * @param {string} token
+     * @param {string} repositoryFullName
+     * @param {number} page
+     */
+    getRepositoryCollaborators: function( token, repositoryFullName, page) {
+      if ( !page ) {
+        page = 1;
+      }
+
+      return this.sendRequest(
+        "https://api.github.com/repos/" + repositoryFullName + "/collaborators",
+        token,
+        "get",
+        {
+          page: page
+        },
+        true
+      )
+        .then(function( xhr ) {
+          var
+            linkHeader = xhr.getResponseHeader( "Link" ),
+            linkInfo = parseLinkHeader( linkHeader );
+
+          return Q({
+            data: xhr.responseJSON,
+            meta: linkInfo
+          });
         }, function() {
           return Q( null );
         });

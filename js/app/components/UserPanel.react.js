@@ -9,7 +9,6 @@ var
     mixins: [ Authentication ],
 
     render: function() {
-      console.log("[UserPanel]", this.props);
       return (
         <RouteHandler {...this.props} />
       )

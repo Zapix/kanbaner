@@ -198,4 +198,40 @@ describe( "RepositoryActions", function() {
         expect( callsCount.length ).toEqual( 1 );
       });
   });
+
+  it( "Repository select clear", function() {
+    RepositoryActions.requestRepositoryDetail(
+      "sometoken",
+      "zapix/kanbaner",
+      [
+        {
+          id: 1,
+          full_name: "octocat/hello-world"
+        },
+        {
+          id: 2,
+          full_name: "zapix/kanbaner"
+        },
+        {
+          id: 3,
+          full_name: "zapix/another-repository"
+        }
+      ]
+    ).then(
+      RepositoryActions.clearSelectedRepository
+    ).then(function() {
+      var
+        callCount;
+
+      expect( KanbanerDispatcher.handleViewAction ).toBeCalled();
+
+      callCount = KanbanerDispatcher.handleViewAction.mock.calls.filter(
+        function( call ) {
+          return call[0].type == ActionTypes.REPOSITORY_SELECT_CLEAR
+        }
+      );
+
+      expect( callCount.length ).toEqual( 1 );
+    });
+  } );
 });
